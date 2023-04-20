@@ -1,7 +1,17 @@
 import React from 'react'
 import "./Book.css"
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material'
+import axios from 'axios';
 const Book = (props) => {
-    const{ name, author, description, price, image} = props.book;
+    const{_id, name, author, description, price, image} = props.book;
+    const history = useNavigate();
+    const deleteHandler = async ()=>{
+     await axios.delete(`http://localhost:5000/books/${_id}`)
+     .then(res=> res.data)
+     .then(() => history("/"))
+     .then(() => history("/books"));
+    }
   return (
     <div className='card'>
         <img src={image} alt={name} />
@@ -9,8 +19,11 @@ const Book = (props) => {
         <h3>{name}</h3>
         <p>{description}</p>
         <h2>${price}</h2>
-        <button sx={{mt:"auto"}}>Update</button>
-        <button sx={{mt:"auto"}}>Delete</button>
+        <Link to={`/books/${_id}`} LinkComponent={Button} sx={{ mt: "auto" }}>
+          Update
+        </Link>
+        
+        <button onClick={deleteHandler} sx={{mt:"auto"}}>Delete</button>
     </div>
   )
 }

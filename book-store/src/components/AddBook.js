@@ -1,7 +1,10 @@
 import { FormLabel, TextField, Box, Button, FormControlLabel, Checkbox } from '@mui/material'
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
 
 const AddBook = () => {
+    const history = useNavigate();
     const [inputs, setInputs] = useState({
         name:"",
         description: "",
@@ -16,9 +19,25 @@ const AddBook = () => {
             [e.target.name]: e.target.value
         }))
     }
+    const sendRequest = async() => {
+        await axios.post("http://localhost:5000/books",{
+            name:String(inputs.name),
+            author: String(inputs.author),
+            description: String(inputs.description),
+            price: Number(inputs.price),
+            image: String(inputs.image),
+            available: Boolean(checked)
+
+        }).then(res => res.data);
+    }
+    const handleSubmit= (e) => {
+        e.preventDefault();
+        console.log(inputs,checked);
+        sendRequest().then(() => history("/books"));
+    }
   return (
-    <div>
-        <form>
+    
+        <form onSubmit={handleSubmit}>
         <Box display="flex" flexDirection="column" justifyContent={'center'} maxWidth={700} alignContent={"center"} alignSelf={"center"}
         marginLeft={"auto"} marginRight={"auto"} marginTop={10}>
         <FormLabel>Name</FormLabel>
@@ -36,7 +55,7 @@ const AddBook = () => {
         </Box>
         
         </form>
-    </div>
+    
   )
 }
 

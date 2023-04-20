@@ -7,12 +7,15 @@ const Header = () => {
   return (
     <div>
         <AppBar sx={{backgroundColor:"#232F3D"}}position='sticky'>
+
             <Toolbar>
+                <NavLink to="/" sx={{color:'white'}}>
                 <Typography>
 
                 
             <LibraryBooksIcon />
             </Typography>
+            </NavLink>
             <Tabs sx={{ml:'auto'}} textColor="inherit" indicatorColor="secondary" value={value} onChange={(e, val)=> setValue(val)}>
                 <Tab LinkComponent={NavLink} to="/add" label="Add Product"/>
                 <Tab LinkComponent={NavLink} to="/books" label="Books"/>
