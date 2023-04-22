@@ -1,6 +1,6 @@
-# Online Book Store - MERN Stack
+# Book-Hub - MERN Stack
 
-This is an online book store project built using the MERN stack, which includes:
+This is an book-hub project built using the MERN stack, which includes:
 
 * MongoDB (database)
 * Express.js (server)
